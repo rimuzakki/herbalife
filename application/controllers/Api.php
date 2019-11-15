@@ -9,6 +9,8 @@ use Restserver\Libraries\REST_Controller;
 class API extends REST_Controller {
 
 	function __construct($config = 'rest') {
+		header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		parent ::__construct($config);
   }
   
