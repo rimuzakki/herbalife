@@ -4,13 +4,25 @@
 * Webservice untuk melayani data produk
 */ 
 require_once APPPATH . 'libraries/REST_Controller.php' ;
+require_once APPPATH . 'libraries/Format.php' ;
+
 use Restserver\Libraries\REST_Controller;
 
 class API extends REST_Controller {
 
 	function __construct($config = 'rest') {
+		// header('Access-Control-Allow-Origin: *');
+		// header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+		// header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+
 		header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    $method = $_SERVER['REQUEST_METHOD'];
+    if($method == "OPTIONS") {
+        die();
+		}
+		
 		parent ::__construct($config);
   }
   
@@ -51,7 +63,20 @@ class API extends REST_Controller {
 
 	function peserta_put() {
 		$params = array(
-			'hadir' => $this->put('hadir')
+			'hadir' => $this->put('hadir'),
+			'id_herbalife' => $this->put('id_herbalife'),
+			'nama' => $this->put('nama'),
+			'level_herbalife' => $this->put('level_herbalife'),
+			'no_telp' => $this->put('no_telp'),
+			'tanggal_lahir' => $this->put('tanggal_lahir'),
+			'email' => $this->put('email'),
+			'kota_asal' => $this->put('kota_asal'),
+			'propinsi' => $this->put('propinsi'),
+			'tanggal_transfer' => $this->put('tanggal_transfer'),
+			'nama_transfer' => $this->put('nama_transfer'),
+			'bank_transfer' => $this->put('bank_transfer'),
+			'nominal_transfer' => $this->put('nominal_transfer'),
+			'berita_transfer' => $this->put('berita_transfer')
 		);
 		
 		$this->db->where('id_peserta', $this->put('id_peserta'));
