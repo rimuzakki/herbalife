@@ -24,6 +24,8 @@ class API extends REST_Controller {
 		}
 		
 		parent ::__construct($config);
+		$this->load->model('peserta_model');
+
   }
   
 	function peserta_get() {
@@ -43,22 +45,34 @@ class API extends REST_Controller {
     }
 	}
 
-	// function produks_post() {
-	// 	$params = array(
-	// 		'nama' => $this->post('nama'),
-	// 		'deskripsi' => $this->post('deskripsi'),
-	// 		'kategori' => $this->post('kategori'),
-	// 		'harga' => $this->post('harga'));
-	// 	 $process = $this->db->insert('produk', $params);
-	// 	 if($process){
-	// 		// 201 artinya Succesful creation of a resource.
-	// 		$this->response(array('status'=>'succes'),201);
-	// 	 }else{
-	// 		// 502 artinya Backend service failure (data store failure).
-	// 		return $this->response(array('status'=>'fail'), 502);
-	// 	}
+	function peserta_post() {
+		$params = array(
+			'id_peserta' => $this->post('id_peserta'),
+			'hadir' => $this->post('hadir'),
+			'id_herbalife' => $this->post('id_herbalife'),
+			'nama' => $this->post('nama'),
+			'level_herbalife' => $this->post('level_herbalife'),
+			'no_telp' => $this->post('no_telp'),
+			'tanggal_lahir' => $this->post('tanggal_lahir'),
+			'email' => $this->post('email'),
+			'kota_asal' => $this->post('kota_asal'),
+			'propinsi' => $this->post('propinsi'),
+			'tanggal_transfer' => $this->post('tanggal_transfer'),
+			'nama_transfer' => $this->post('nama_transfer'),
+			'bank_transfer' => $this->post('bank_transfer'),
+			'nominal_transfer' => $this->post('nominal_transfer'),
+			'berita_transfer' => $this->post('berita_transfer')
+		);
+		 $process = $this->db->insert('peserta', $params);
+		 if($process){
+			// 201 artinya Succesful creation of a resource.
+			$this->response(array('status'=>'succes'),201);
+		 }else{
+			// 502 artinya Backend service failure (data store failure).
+			return $this->response(array('status'=>'fail'), 502);
+		}
 		
-	// }
+	}
 
 
 	function peserta_put() {
@@ -100,6 +114,17 @@ class API extends REST_Controller {
 	// 		return $this->response(array('status'=>'fail'),502);
 	// 	}	
 	// }
+
+	function statusEntryCount_get() {
+
+		$query = $this->peserta_model->get_status_entry_count()->result();
+
+		if($query) {
+      $this->response($query,200);
+    } else {
+      $this->response(array('status'=>'not found'), 404);
+    }
+	}
 }
 
 ?>
