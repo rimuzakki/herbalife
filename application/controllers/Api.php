@@ -125,6 +125,17 @@ class API extends REST_Controller {
       $this->response(array('status'=>'not found'), 404);
     }
 	}
+
+	function statusEntryCountByKelompok_get() {
+
+		$query = $this->peserta_model->get_status_entry_count_by_kelompok()->result();
+
+		if($query) {
+      $this->response($query,200);
+    } else {
+      $this->response(array('status'=>'not found'), 404);
+    }
+	}
 }
 
 ?>
