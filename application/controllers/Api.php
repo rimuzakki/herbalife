@@ -34,6 +34,9 @@ class API extends REST_Controller {
 		if ($id) {
 			$peserta = $this->db->get_where('peserta', array('id_peserta'=>$id))->result();
 		} else {
+			$this->db->select('id_peserta, no_invoice, IFNULL(id_herbalife, "") as id_herbalife, IFNULL(nama,"") as nama, level_herbalife, 
+			IFNULL(no_telp, "") as no_telp, tanggal_lahir, IFNULL(email, "") as email, kota_asal, propinsi, 
+				tanggal_transfer, IFNULL(nama_transfer, "") as nama_transfer, bank_transfer, nominal_transfer, berita_transfer, hadir');
 			$peserta = $this->db->get('peserta')->result();
     }
     
